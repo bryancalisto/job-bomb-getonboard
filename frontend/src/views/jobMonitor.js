@@ -19,17 +19,15 @@ const JobMonitorView = () => {
 
     for (let i = 0; i < 9; i++) {
       rows.push(
-        (<div className='jobs-row' key={i}>
-          <div className='jobs-cell'>asdf</div>
-          <div className='jobs-cell'>asdf</div>
-          <div className='jobs-cell'>asdf</div>
-          <div className='jobs-cell'>asdf</div>
-          <div className='jobs-cell'>asdf</div>
-          <div className='jobs-cell'>asdffasd</div>
-          <div className='jobs-cell'>asdff</div>
-          <div className='jobs-cell'>asdf</div>
-          <div className='jobs-cell'>asdf</div>
-        </div>)
+        (<tr key={i}>
+          <td>asdf</td>
+          <td>asdf</td>
+          <td>asdf</td>
+          <td>asdf</td>
+          <td>asdf</td>
+          <td>asdffasd</td>
+          <td>asdff</td>
+        </tr>)
       );
     }
 
@@ -56,18 +54,20 @@ const JobMonitorView = () => {
         <source src={backgroundVideo} type='video/mp4' />
       </video>
 
-      <div className='jobs-container'>
-        <div className='jobs-row'>
-          <div className='jobs-header'>Puesto</div>
-          <div className='jobs-header'>Compañía</div>
-          <div className='jobs-header'>Salario</div>
-          <div className='jobs-header'>Tipo</div>
-          <div className='jobs-header'>Beneficios</div>
-          <div className='jobs-header'>Remoto</div>
-          <div className='jobs-header'>Lugar</div>
-        </div>
-        {buildJobsRows()}
-      </div>
+      <table>
+        <thead>
+          <th>Puesto</th>
+          <th>Compañía</th>
+          <th>Salario</th>
+          <th>Tipo</th>
+          <th>Beneficios</th>
+          <th>Remoto</th>
+          <th>Lugar</th>
+        </thead>
+        <tbody>
+          {buildJobsRows()}
+        </tbody>
+      </table>
 
       {displaySettingsBtn && <GrSettingsOption className='settings-btn' onClick={() => navigate('/settings')} />}
     </div >
