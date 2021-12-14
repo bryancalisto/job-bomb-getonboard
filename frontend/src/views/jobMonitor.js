@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import backgroundVideo from '../assets/cyberpunk_video.mp4';
-import { GrSettingsOption } from 'react-icons/gr';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from "react";
+import backgroundVideo from "../assets/cyberpunk_video.mp4";
+import { GrSettingsOption } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 
 const JobMonitorView = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const JobMonitorView = () => {
 
   useEffect(() => {
     isMounted.current = true;
-    return () => isMounted.current = false;
+    return () => (isMounted.current = false);
   }, []);
 
   const buildJobsRows = () => {
@@ -19,7 +19,7 @@ const JobMonitorView = () => {
 
     for (let i = 0; i < 9; i++) {
       rows.push(
-        (<tr key={i}>
+        <tr key={i}>
           <td>asdf</td>
           <td>asdf</td>
           <td>asdf</td>
@@ -27,7 +27,7 @@ const JobMonitorView = () => {
           <td>asdf</td>
           <td>asdffasd</td>
           <td>asdff</td>
-        </tr>)
+        </tr>
       );
     }
 
@@ -44,14 +44,14 @@ const JobMonitorView = () => {
         }
       }, 5000);
     }
-  }
+  };
 
   return (
     // <div onMouseMove={displayBtn}>
     <div>
       {/* <button onClick={() => connect('ws://localhost:8000', true, 5000)}>CONNECT</button> */}
       <video autoPlay loop muted>
-        <source src={backgroundVideo} type='video/mp4' />
+        <source src={backgroundVideo} type="video/mp4" />
       </video>
 
       <table>
@@ -64,14 +64,17 @@ const JobMonitorView = () => {
           <th>Remoto</th>
           <th>Lugar</th>
         </thead>
-        <tbody>
-          {buildJobsRows()}
-        </tbody>
+        <tbody>{buildJobsRows()}</tbody>
       </table>
 
-      {displaySettingsBtn && <GrSettingsOption className='settings-btn' onClick={() => navigate('/settings')} />}
-    </div >
-  )
-}
+      {displaySettingsBtn && (
+        <GrSettingsOption
+          className="settings-btn"
+          onClick={() => navigate("/settings")}
+        />
+      )}
+    </div>
+  );
+};
 
 export default JobMonitorView;
