@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import backgroundVideo from '../assets/cyberpunk_video.mp4';
 import { GrSettingsOption } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
@@ -6,38 +6,13 @@ import { useNavigate } from 'react-router-dom';
 const JobMonitorView = () => {
   const navigate = useNavigate();
   let keepAliveId = useRef(null);
+  let isMounted = useRef(false);
+  const [displaySettingsBtn, setDisplaySettingsBtn] = useState(false);
 
-  function connect(url, keepAlive, keepAlivePeriod) {
-    try {
-      const ws = new WebSocket(url);
-
-      if (keepAlive) {
-        clearInterval(keepAliveId.current);
-        keepAliveId.current = setInterval(() => {
-          ws.send('ping');
-        }, keepAlivePeriod || 5000);
-      }
-
-      ws.onopen = () => {
-        console.log('Websocket is open');
-      }
-
-      ws.onclose = () => {
-        console.log('Websocket closed');
-      }
-
-      ws.onerror = (e) => {
-        console.log('Websocket error', e);
-      }
-
-      ws.onmessage = (message) => {
-        console.log('Websocket data', message.data);
-      }
-
-    } catch (e) {
-      console.log('Error in websocket connection: ', e);
-    }
-  }
+  useEffect(() => {
+    isMounted.current = true;
+    return () => isMounted.current = false;
+  }, []);
 
   const buildJobsRows = () => {
     const rows = [];
@@ -49,6 +24,11 @@ const JobMonitorView = () => {
           <div className='jobs-cell'>asdf</div>
           <div className='jobs-cell'>asdf</div>
           <div className='jobs-cell'>asdf</div>
+          <div className='jobs-cell'>asdf</div>
+          <div className='jobs-cell'>asdffasd</div>
+          <div className='jobs-cell'>asdff</div>
+          <div className='jobs-cell'>asdf</div>
+          <div className='jobs-cell'>asdf</div>
         </div>)
       );
     }
@@ -56,19 +36,41 @@ const JobMonitorView = () => {
     return rows;
   };
 
+  const displayBtn = async () => {
+    if (!displaySettingsBtn) {
+      setDisplaySettingsBtn(true);
+
+      setTimeout(() => {
+        if (isMounted.current) {
+          setDisplaySettingsBtn(false);
+        }
+      }, 5000);
+    }
+  }
+
   return (
-    <>
+    // <div onMouseMove={displayBtn}>
+    <div>
       {/* <button onClick={() => connect('ws://localhost:8000', true, 5000)}>CONNECT</button> */}
       <video autoPlay loop muted>
         <source src={backgroundVideo} type='video/mp4' />
       </video>
 
       <div className='jobs-container'>
+        <div className='jobs-row'>
+          <div className='jobs-header'>Puesto</div>
+          <div className='jobs-header'>Compañía</div>
+          <div className='jobs-header'>Salario</div>
+          <div className='jobs-header'>Tipo</div>
+          <div className='jobs-header'>Beneficios</div>
+          <div className='jobs-header'>Remoto</div>
+          <div className='jobs-header'>Lugar</div>
+        </div>
         {buildJobsRows()}
       </div>
 
-      <GrSettingsOption className='settings-btn' onClick={() => navigate('/settings')} />
-    </>
+      {displaySettingsBtn && <GrSettingsOption className='settings-btn' onClick={() => navigate('/settings')} />}
+    </div >
   )
 }
 

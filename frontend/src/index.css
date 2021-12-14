@@ -48,7 +48,6 @@ video {
 .jobs-row {
   display: flex;
   flex: 1;
-  font-size: 2rem;
   color: var(--onPrimary);
   border-left: 0;
   border-right: 0;
@@ -62,7 +61,18 @@ video {
   flex: 1;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
+  font-size: 1.6rem;
+  color: var(--onPrimary);
+}
+
+.jobs-header {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.7rem;
+  font-weight: bold;
+  font-style: italic;
   color: var(--onPrimary);
 }
 
@@ -76,6 +86,7 @@ video {
   opacity: 0.8;
   width: 3.5rem;
   height: 3.5rem;
+  transition: opacity 3s;
 }
 
 
