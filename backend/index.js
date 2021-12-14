@@ -48,10 +48,14 @@ function initWebSocketServer(port = 8000) {
 const wss = initWebSocketServer();
 
 wss.on('connection', (ws) => {
+  /* Poll professional offers every 10 seconds and send the results to the frontend. 
+    This will be displayed in the venue's screen */
   let pollingProcessId = setInterval(async () => {
     const offers = await getJobOffers();
-    ws.send(JSON.stringify(offers));
-  }, 10000);
+    if (offers) {
+      ws.send(JSON.stringify(offers[0].attributes.title));
+    }
+  }, 5000);
 
   ws.on('message', (data) => {
     ws.send('message: ', data.toString());
