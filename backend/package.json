@@ -4,11 +4,16 @@
   "description": "backend for job bomb",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "ws": "^8.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
