@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const WsServer = require('ws');
 const { createServer } = require('http');
-const { getJobOffers } = require('./controller');
+const { getJobOffers } = require('./controllers/jobOffersCtl');
 
 const app = express();
 const server = createServer(app);
@@ -53,12 +53,13 @@ wss.on('connection', (ws) => {
   let pollingProcessId = setInterval(async () => {
     const offers = await getJobOffers();
     if (offers) {
-      ws.send(JSON.stringify(offers[0].attributes.title));
+      // ws.send(JSON.stringify(offers[0].attributes.title));
+      ws.send('asdffd');
     }
   }, 5000);
 
   ws.on('message', (data) => {
-    ws.send('message: ', data.toString());
+    ws.send('hello');
   });
 
   ws.on('close', () => {
