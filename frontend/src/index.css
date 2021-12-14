@@ -5,9 +5,86 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+:root{
+  --primary: #711c91;
+  --onPrimary: #ea00d9;
+}
+
+.background {
+  background-image: url(../src/assets/cyberpunk.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/*Job Monitor*/
+.video-container {
+  padding: 1rem;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+}
+
+.jobs-container {
+  background-color: #000000b2;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  top:0;
+  position: absolute;
+}
+
+.jobs-row {
+  display: flex;
+  flex: 1;
+  font-size: 2rem;
+  color: var(--onPrimary);
+  border-left: 0;
+  border-right: 0;
+  border-top: 0.1rem solid #0f0f0f;
+  border-bottom: 0.1rem solid var(--onPrimary);
+  box-shadow: 7px -2px 13px -2px;
+}
+
+.jobs-cell {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: var(--onPrimary);
+}
+
+.settings-btn {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 1rem;
+  right: 1rem;
+  opacity: 0.8;
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+
+/*Settings*/
+.settings-container {
+  background-color: #000000b2;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
