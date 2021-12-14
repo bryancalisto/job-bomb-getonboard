@@ -1,6 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const WsServer = require('ws');
 const { createServer } = require('http');
+const { getJobOffers } = require('./controller');
 
 const app = express();
 const server = createServer(app);
@@ -46,7 +48,16 @@ function initWebSocketServer(port = 8000) {
 const wss = initWebSocketServer();
 
 wss.on('connection', (ws) => {
+  let pollingProcessId = setInterval(async () => {
+    const offers = await getJobOffers();
+    ws.send(JSON.stringify(offers));
+  }, 10000);
+
   ws.on('message', (data) => {
-    ws.send(data.toString());
+    ws.send('message: ', data.toString());
   });
-})
+
+  ws.on('close', () => {
+    clearInterval(pollingProcessId);
+  });
+});
