@@ -7,9 +7,9 @@ let PROFESSIONAL_REFRESH_TOKEN;
 const api = axios.create({
   baseURL: BASE_URL,
   timeout: 2000,
-  headers: {
-    authorization: PROFESSIONAL_ACCESS_TOKEN
-  }
+  // headers: {
+  //   authorization: PROFESSIONAL_ACCESS_TOKEN
+  // }
 });
 
 const axiosForTokenRequest = axios.create();
