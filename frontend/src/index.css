@@ -35,21 +35,23 @@ video {
 }
 
 table {
-  background-color: #000000b2;
+  background-color: #000000b4;
   width: 100%;
   height: 100%;
   top:0;
   position: absolute;
 }
 
+thead {
+  background-color: var(--primary);
+  opacity: 0.7;
+}
+
 tr {
   color: var(--onPrimary);
-  border-left: 0;
-  border-right: 0;
-  border-top: 0.1rem solid #0f0f0f;
-  border-bottom: 0.1rem solid var(--onPrimary);
-  box-shadow: 17px -1px 16px -2px;
+  box-shadow: 6px -1px 16px -2px;
 }
+
 
 td {
   font-size: 1.4rem;
@@ -62,7 +64,8 @@ th {
   font-weight: bold;
   font-style: italic;
   color: var(--onPrimary);
-  padding: 1rem;
+  opacity: 0.8;
+  border-bottom: none;
 }
 
 .settings-btn {
