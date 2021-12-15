@@ -20,7 +20,7 @@ const JobMonitorView = () => {
 
   useEffect(() => {
     isMounted.current = true;
-    SpeechRecognition.startListening({ continuous: true });
+    SpeechRecognition.startListening({ continuous: true, language:'es-EC'});
 
     keepAliveId.current = setInterval(async () => {
       const result = await getJobsOffers(toSearch);
