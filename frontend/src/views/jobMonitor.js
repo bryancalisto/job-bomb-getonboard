@@ -93,6 +93,7 @@ const JobMonitorView = () => {
   const buildJobsRows = () => {
     return jobsList.map((job, i) => (
       <tr key={i}>
+        <td>{i}</td>
         <td>{job.position}</td>
         <td>{job.company}</td>
         <td>{job.minSalary && job.maxSalary ? `${job.minSalary} - ${job.maxSalary}` : '???'}</td>
@@ -112,6 +113,7 @@ const JobMonitorView = () => {
       <table>
         <thead>
           <tr>
+            <th>#</th>
             <th>Puesto</th>
             <th>Compañía</th>
             <th>Salario</th>
