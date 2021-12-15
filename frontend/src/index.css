@@ -45,19 +45,19 @@ table {
   height: 100%;
   top: 0;
   position: absolute;
+  color: var(--onPrimary);
 }
 
 thead {
   background-color: var(--primary);
+  color: var(--onPrimary);
   opacity: 0.7;
 }
 
 tr {
-  color: var(--onPrimary);
   box-shadow: 6px -1px 16px -2px;
   max-height: 10%;
 }
-
 
 td {
   font-size: 1.6rem;
@@ -70,7 +70,7 @@ th {
   font-size: 1.7rem;
   font-weight: bold;
   font-style: italic;
-  color: var(--onPrimary);
+  color: #d69fd2;
   opacity: 0.8;
   border-bottom: none;
   padding: 0.5rem;
@@ -89,12 +89,17 @@ th {
   transition: opacity 3s;
 }
 
-/*Settings*/
-.settings-container {
-  background-color: #000000b2;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
+
+.qr-background {
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+}
+
+.qr {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

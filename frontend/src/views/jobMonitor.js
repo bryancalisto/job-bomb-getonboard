@@ -6,14 +6,14 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import getJobsOffers from "../controller/JobsOffers";
+var QRCode = require('qrcode.react');
 
 const JobMonitorView = () => {
-  const navigate = useNavigate();
   let keepAliveId = useRef(null);
   let isMounted = useRef(false);
-  let [toSearch, setToSearch] = useState('php');
+  let [toSearch, setToSearch] = useState('javascript');
   let [jobsList, setJobsList] = useState([]);
-  const [displaySettingsBtn, setDisplaySettingsBtn] = useState(false);
+  let [qr, setQr] = useState('');
 
   const { transcript, listening, browserSupportsSpeechRecognition, resetTranscript } =
     useSpeechRecognition();
@@ -23,7 +23,6 @@ const JobMonitorView = () => {
     SpeechRecognition.startListening({ continuous: true });
 
     keepAliveId.current = setInterval(async () => {
-      console.log('data: ', toSearch);
       const result = await getJobsOffers(toSearch);
       const newJobsList = [...jobsList];
 
@@ -37,23 +36,21 @@ const JobMonitorView = () => {
           minSalary: res.attributes.min_salary,
           maxSalary: res.attributes.max_salary,
           position: res.attributes.title,
-          type: 'type'
         }
 
         if (newJobsList.length <= 8) {
           newJobsList.push(job);
         }
 
-        console.log(res.links.public_url);
-        console.log(res.attributes.company.data.attributes.name);
-        console.log(res.attributes.remote);
-        console.log(res.attributes.country);
-        console.log(res.attributes.perks.join(', '));
-        console.log(res.attributes.min_salary);
-        console.log(res.attributes.max_salary);
+        // DEBUG
+        // console.log(res.links.public_url);
+        // console.log(res.attributes.company.data.attributes.name);
+        // console.log(res.attributes.remote);
+        // console.log(res.attributes.country);
+        // console.log(res.attributes.perks.join(', '));
+        // console.log(res.attributes.min_salary);
+        // console.log(res.attributes.max_salary);
       });
-
-      console.log('jobs:', newJobsList);
 
       setJobsList(newJobsList);
     }, 5000);
@@ -62,26 +59,29 @@ const JobMonitorView = () => {
       clearInterval(keepAliveId.current);
       isMounted.current = false;
     };
-  }, []);
-
-  const querySearch = () => {
-    console.log("transcript ", transcript);
-    if (/borrar/.test(transcript.toLowerCase())) {
-      console.log("BORRANDO transcript dentro de if ");
-      resetTranscript();
-      setToSearch('');
-    } else if (/buscar/.test(transcript.toLowerCase())) {
-      console.log("BUSCAR transcript dentro de if ");
-      const result = /[0-9]/.exec(transcript.toLowerCase());
-      if (result) {
-        alert(jobsList[Number(result[0])].url);
-      }
-    } else {
-      setToSearch(transcript);
-    }
-  };
+  }, [toSearch]);
 
   useEffect(() => {
+    const querySearch = () => {
+      console.log("transcript ", transcript);
+      if (/borrar/.test(transcript.toLowerCase())) {
+        console.log("BORRANDO");
+        resetTranscript();
+        setToSearch('');
+      } else if (/buscar/.test(transcript.toLowerCase())) {
+        const result = /[0-9]/.exec(transcript.toLowerCase());
+        if (result) {
+          console.log("BUSCANDO " + result[0]);
+          setQr(jobsList[Number(result[0])].url);
+        }
+      } else if (/cerrar/.test(transcript.toLowerCase())) {
+        console.log("CERRANDO");
+        setQr('');
+      }
+      else {
+        setToSearch(transcript);
+      }
+    };
     querySearch();
   }, [transcript]);
 
@@ -103,22 +103,8 @@ const JobMonitorView = () => {
     ));
   };
 
-  const displayBtn = async () => {
-    if (!displaySettingsBtn) {
-      setDisplaySettingsBtn(true);
-
-      setTimeout(() => {
-        if (isMounted.current) {
-          setDisplaySettingsBtn(false);
-        }
-      }, 5000);
-    }
-  };
-
   return (
-    // <div onMouseMove={displayBtn}>
     <div>
-      {/* <button onClick={() => connect('ws://localhost:8000', true, 5000)}>CONNECT</button> */}
       <video autoPlay loop muted>
         <source src={backgroundVideo} type="video/mp4" />
       </video>
@@ -137,12 +123,14 @@ const JobMonitorView = () => {
         <tbody>{buildJobsRows()}</tbody>
       </table>
 
-      {displaySettingsBtn && (
-        <GrSettingsOption
-          className="settings-btn"
-          onClick={() => navigate("/settings")}
-        />
-      )}
+      {
+        qr.length > 0 &&
+        <div className="qr-background">
+          <div className="qr">
+            <QRCode value={qr} size={250} includeMargin={true} bgColor="#ea00d9" fgColor="#000" level="Q" />
+          </div>
+        </div>
+      }
     </div>
   );
 };
