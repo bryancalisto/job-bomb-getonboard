@@ -9,8 +9,8 @@ Install Node >12.0 and npm, Go to 'frontend' directory, run 'npm i' and 'npm sta
 The app will listen voice commands and act accordingly. To make a search, just clear the current search criteria (explained below) and tell the keywords you want the job offers to be associated with.
 
 #### COMMANDS
-- ***Clear: ***Clears the current search criteria.
-- ***Show [number]: *** Displays a QR code that contains the link to the job offer referenced by it's '#' column.
+- ***Clear:*** Clears the current search criteria.
+- ***Show [number]:*** Displays a QR code that contains the link to the job offer referenced by it's '#' column.
 - ***Close:*** Closes the previously displayed QR code.
 
 
