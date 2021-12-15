@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 code {
@@ -70,20 +70,6 @@ th {
   border-bottom: none;
   padding: 0.5rem;
 }
-
-.settings-btn {
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  bottom: 1rem;
-  right: 1rem;
-  opacity: 0.8;
-  width: 3.5rem;
-  height: 3.5rem;
-  transition: opacity 3s;
-}
-
 
 .qr-background {
   background-color: black;

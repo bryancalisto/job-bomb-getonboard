@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import backgroundVideo from "../assets/cyberpunk_video.mp4";
-import { GrSettingsOption } from "react-icons/gr";
-import { useNavigate } from "react-router-dom";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import getJobsOffers from "../controller/JobsOffers";
+import { fromTextToNumber } from "../utils";
 var QRCode = require('qrcode.react');
 
 const JobMonitorView = () => {
@@ -64,17 +63,22 @@ const JobMonitorView = () => {
   useEffect(() => {
     const querySearch = () => {
       console.log("transcript ", transcript);
+
       if (/borrar/.test(transcript.toLowerCase())) {
         console.log("BORRANDO");
         resetTranscript();
         setToSearch('');
-      } else if (/buscar/.test(transcript.toLowerCase())) {
-        const result = /[0-9]/.exec(transcript.toLowerCase());
+      }
+
+      if (/buscar/.test(transcript.toLowerCase())) {
+        const result = /[0-9]/.exec(fromTextToNumber(transcript.toLowerCase()));
         if (result) {
           console.log("BUSCANDO " + result[0]);
           setQr(jobsList[Number(result[0])].url);
         }
-      } else if (/cerrar/.test(transcript.toLowerCase())) {
+      }
+
+      if (/cerrar/.test(transcript.toLowerCase())) {
         console.log("CERRANDO");
         setQr('');
       }
