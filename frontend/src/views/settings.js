@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+// import  QRCode from 'qrcode.react'; 
+var QRCode = require('qrcode.react');
 
 const SettingsView = () => {
   const { transcript, listening, browserSupportsSpeechRecognition } =
@@ -53,6 +55,13 @@ const SettingsView = () => {
         <button onClick={SpeechRecognition.stopListening}>Stop</button>
         <button onClick={resetTranscript}>Reset</button> */}
         <p style={{ color: "white" }}>{transcript}</p>
+        {/* style={{border:"1px solid #fff"}} */}
+        {
+          transcript && <div style={{textAlign:'center', marginBottom:50}}>
+          <QRCode value="https://github.com/cazabe" size={250} includeMargin={true} bgColor="#ea00d9" fgColor="#000" level="Q"/>
+          </div>
+        }
+        
 
         <button>Guardar</button>
       </div>
